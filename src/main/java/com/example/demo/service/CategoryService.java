@@ -40,5 +40,17 @@ public class CategoryService {
 
     }
 
+    public void callDeleteCategoryProcedure(int id) {
+        String sql = "{call categoryCrud.deleteCategory(?)}";
+        jdbcTemplate.update(sql, id);
+
+    }
+
+    public void callUpdateCategoryProcedure(int id, String categoryName, String categoryDesc) {
+        String sql = "{call categoryCrud.updateCategory(?,?,?)}";
+        jdbcTemplate.update(sql, id,categoryName, categoryDesc);
+
+    }
+
 
 }

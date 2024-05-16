@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.AddCategoryRequest;
+import com.example.demo.dto.UpdateCategoryRequest;
 import com.example.demo.dto.UserRegisterRequest;
 import com.example.demo.entities.Categories;
 import com.example.demo.entities.SubCategories;
@@ -30,7 +31,7 @@ public class CategoryController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
     @PostMapping("/addCategory")
-    public ResponseEntity<String> registerUser(@RequestBody AddCategoryRequest addCategoryRequest) {
+    public ResponseEntity<String> addCategory(@RequestBody AddCategoryRequest addCategoryRequest) {
         try {
             categoryService.callAddCategoryProcedure(addCategoryRequest.getCategoryName(),addCategoryRequest.getCategoryDesc());
             return new ResponseEntity<>("Category Added successfully", HttpStatus.CREATED);
@@ -38,5 +39,27 @@ public class CategoryController {
             return new ResponseEntity<>("Failed to Added Category: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PostMapping("/deleteCategory/{id}")
+    public ResponseEntity<String> deleteCategory(@PathVariable Integer id) {
+        try {
+            categoryService.callDeleteCategoryProcedure(id);
+            return new ResponseEntity<>("Category deleted successfully", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Failed to delete Category: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/updateCategory")
+    public ResponseEntity<String> updateCategory(@RequestBody UpdateCategoryRequest updateCategoryRequest) {
+        try {
+            categoryService.callUpdateCategoryProcedure(updateCategoryRequest.getId(),updateCategoryRequest.getCategoryName(),updateCategoryRequest.getCategoryDesc());
+            return new ResponseEntity<>("Category deleted successfully", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Failed to delete Category: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 
 }
