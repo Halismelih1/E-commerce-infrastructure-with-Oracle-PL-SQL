@@ -1,7 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.entities.Products;
 import com.example.demo.entities.SubCategories;
-import com.example.demo.entities.Users;
+import com.example.demo.service.ProductService;
 import com.example.demo.service.SubCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,19 +14,19 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-public class SubCategoryController {
+public class ProductsController {
     @Autowired
-    private SubCategoryService subCategoryService;
+    private ProductService productService;
 
-    @GetMapping("/subCategories")
-    public List<SubCategories> getAllSubCategories() {
-        return subCategoryService.getAllSubCategory();
+    @GetMapping("/products")
+    public List<Products> getAllProd() {
+        return productService.getAllProd();
     }
 
-    @GetMapping("/subCategories/{subId}")
-    public ResponseEntity<SubCategories> getSubCatById(@PathVariable Integer subId) {
-        Optional<SubCategories> subCat = subCategoryService.getSubCategoryById(subId);
-        return subCat.map(ResponseEntity::ok)
+    @GetMapping("/products/{prodId}")
+    public ResponseEntity<Products> getSubCatById(@PathVariable Integer prodId) {
+        Optional<Products> products = productService.getProdById(prodId);
+        return products.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
