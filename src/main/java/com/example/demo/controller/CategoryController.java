@@ -1,13 +1,14 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.AddCategoryRequest;
+import com.example.demo.dto.UserRegisterRequest;
 import com.example.demo.entities.Categories;
 import com.example.demo.entities.SubCategories;
 import com.example.demo.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,4 +29,14 @@ public class CategoryController {
         return categories.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+    @PostMapping("/addCategory")
+    public ResponseEntity<String> registerUser(@RequestBody AddCategoryRequest addCategoryRequest) {
+        try {
+            categoryService.callAddCategoryProcedure(addCategoryRequest.getCategoryName(),addCategoryRequest.getCategoryDesc());
+            return new ResponseEntity<>("Category Added successfully", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Failed to Added Category: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
