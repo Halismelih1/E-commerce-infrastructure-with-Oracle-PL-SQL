@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class Users {
     @Id
     @Column(name = "USERID")
-    private Long userId;
+    private Integer userId;
     @Column(name = "USERNAME")
     private String username;
     @Column(name = "USERPASSWORD")

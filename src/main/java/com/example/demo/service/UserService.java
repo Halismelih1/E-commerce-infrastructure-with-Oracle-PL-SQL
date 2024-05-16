@@ -29,8 +29,9 @@ public class UserService {
         return userRepository.findById(userId);
     }
 
+
+    //Oracle PL/SQL prosedürleri çağır
     public void registerUser(UserRegisterRequest userRegisterRequest) {
-        //Oracle PL/SQL prosedürü
         String sql = "{ call RegisterPackage.RegisterUser(?, ?, ?, ?, ?, ?) }";
         jdbcTemplate.update(sql, userRegisterRequest.getUsername(), userRegisterRequest.getUserPassword(),userRegisterRequest.getFirstname(),userRegisterRequest.getLastname(),userRegisterRequest.getEmail(),userRegisterRequest.getPhone());
     }
