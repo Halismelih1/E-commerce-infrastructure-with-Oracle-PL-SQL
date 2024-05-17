@@ -52,9 +52,9 @@ public class CategoryController {
     public ResponseEntity<String> updateCategory(@RequestBody UpdateCategoryRequest updateCategoryRequest) {
         try {
             categoryService.callUpdateCategoryProcedure(updateCategoryRequest.getId(),updateCategoryRequest.getCategoryName(),updateCategoryRequest.getCategoryDesc());
-            return new ResponseEntity<>("Category deleted successfully", HttpStatus.CREATED);
+            return new ResponseEntity<>("Category updated successfully", HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>("Failed to delete Category: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Failed to update Category: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

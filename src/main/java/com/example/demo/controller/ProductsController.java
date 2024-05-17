@@ -34,7 +34,7 @@ public class ProductsController {
     @PostMapping("/addProduct")
     public ResponseEntity<String> addProduct(@RequestBody AddProductRequest addProductRequest) {
         try {
-            productService.callAddProductProcedure(addProductRequest.getProductName(),addProductRequest.getProductPrice(),addProductRequest.getProductDesc(),addProductRequest.getCategoryId(),addProductRequest.getSubCategoryId());
+            productService.callAddProductProcedure(addProductRequest.getProductName(),addProductRequest.getProductPrice(),addProductRequest.getProductDesc(),addProductRequest.getSubCategoryId());
             return new ResponseEntity<>("Product Added successfully", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("Failed to Added Product: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -54,10 +54,10 @@ public class ProductsController {
     @PostMapping("/updateProduct")
     public ResponseEntity<String> updateProduct(@RequestBody UpdateProductRequest updateProductRequest) {
         try {
-            productService.callUpdateProductProcedure(updateProductRequest.getProductId(),updateProductRequest.getProductName(),updateProductRequest.getProductPrice(),updateProductRequest.getProductDesc(),updateProductRequest.getCategoryId(),updateProductRequest.getSubCategoryId());
-            return new ResponseEntity<>("Product deleted successfully", HttpStatus.CREATED);
+            productService.callUpdateProductProcedure(updateProductRequest.getProductId(),updateProductRequest.getProductName(),updateProductRequest.getProductPrice(),updateProductRequest.getProductDesc(),updateProductRequest.getSubCategoryId());
+            return new ResponseEntity<>("Product updated successfully", HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>("Failed to delete Product: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Failed to update Product: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

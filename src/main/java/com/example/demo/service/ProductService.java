@@ -15,6 +15,10 @@ public class ProductService {
     ProductRepository productRepository;
     private JdbcTemplate jdbcTemplate;
 
+    public ProductService(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
     public List<Products> getAllProd() {
         return productRepository.findAll();
     }
@@ -24,9 +28,9 @@ public class ProductService {
     }
 
     //Oracle PL/SQL prosedürleri çağır
-    public void callAddProductProcedure(String productName, Integer productPrice, String productDesc,Integer categoryId, Integer subCategoryId) {
-        String sql = "{call productCrud.addProduct(?, ?, ?, ?, ?)}";
-        jdbcTemplate.update(sql, productName, productPrice, productDesc, categoryId, subCategoryId);
+    public void callAddProductProcedure(String productName, Integer productPrice, String productDesc, Integer subCategoryId) {
+        String sql = "{call productCrud.addProduct(?, ?, ?, ?)}";
+        jdbcTemplate.update(sql, productName, productPrice, productDesc, subCategoryId);
 
     }
 
@@ -36,9 +40,9 @@ public class ProductService {
 
     }
 
-    public void callUpdateProductProcedure(int id, String productName, Integer productPrice, String productDesc,Integer categoryId, Integer subCategoryId) {
-        String sql = "{call productCrud.updateProduct(?, ?, ?, ?, ?, ?)}";
-        jdbcTemplate.update(sql, id,productName, productPrice, productDesc, categoryId, subCategoryId);
+    public void callUpdateProductProcedure(int id, String productName, Integer productPrice, String productDesc, Integer subCategoryId) {
+        String sql = "{call productCrud.updateProduct(?, ?, ?, ?, ?)}";
+        jdbcTemplate.update(sql, id,productName, productPrice, productDesc, subCategoryId);
 
     }
 

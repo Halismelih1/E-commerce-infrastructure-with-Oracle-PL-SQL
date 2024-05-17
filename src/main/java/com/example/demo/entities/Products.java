@@ -1,9 +1,7 @@
 package com.example.demo.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.example.demo.service.SubCategoryService;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,8 +21,7 @@ public class Products {
     private String productPrice;
     @Column(name = "PRODUCTDESC")
     private String productDesc;
-    @Column(name = "CATEGORYID")
-    private String categoryId;
     @Column(name = "SUBCATEGORYID")
     private String subCategoryId;
+
 }

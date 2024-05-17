@@ -12,7 +12,6 @@ public class UpdateProductRequest {
     private String productName;
     private Integer productPrice;
     private String productDesc;
-    private Integer categoryId;
     private Integer subCategoryId;
 
 }

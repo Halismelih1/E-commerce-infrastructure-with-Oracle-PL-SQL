@@ -15,6 +15,10 @@ public class SubCategoryService {
     private SubCategoryRepository subCategoryRepository;
     private JdbcTemplate jdbcTemplate;
 
+    public SubCategoryService(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
     public List<SubCategories> getAllSubCategory() {
         return subCategoryRepository.findAll();
     }
@@ -26,19 +30,19 @@ public class SubCategoryService {
     //Oracle PL/SQL prosedürleri çağır
 
     public void callAddSubCategoryProcedure(String subCategoryName, String subCategoryDesc, Integer categoryId) {
-        String sql = "{call subCategoryCrud.addSubCategory(?, ?, ?)}";
+        String sql = "{call SUBCATEGORYCRUD.addSubCategory(?, ?, ?)}";
         jdbcTemplate.update(sql, subCategoryName, subCategoryDesc, categoryId);
 
     }
 
     public void callDeleteSubCategoryProcedure(int id) {
-        String sql = "{call subCategoryCrud.deleteSubCategory(?)}";
+        String sql = "{call SUBCATEGORYCRUD.deleteSubCategory(?)}";
         jdbcTemplate.update(sql, id);
 
     }
 
     public void callUpdateSubCategoryProcedure(int id, String subCategoryName, String subCategoryDesc, Integer categoryId) {
-        String sql = "{call categoryCrud.updateCategory(?,?,?,?)}";
+        String sql = "{call SUBCATEGORYCRUD.updateSubCategory(?,?,?,?)}";
         jdbcTemplate.update(sql, id,subCategoryName, subCategoryDesc , categoryId);
 
     }

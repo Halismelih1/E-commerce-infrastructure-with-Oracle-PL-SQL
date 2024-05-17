@@ -53,9 +53,9 @@ public class SubCategoryController {
     public ResponseEntity<String> updateSubCategory(@RequestBody UpdateSubRequest updateSubRequest) {
         try {
             subCategoryService.callUpdateSubCategoryProcedure(updateSubRequest.getSubCategoryId(),updateSubRequest.getSubCategoryName(),updateSubRequest.getSubCategoryDesc(),updateSubRequest.getCategoryId());
-            return new ResponseEntity<>("subCategory deleted successfully", HttpStatus.CREATED);
+            return new ResponseEntity<>("subCategory updated successfully", HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>("Failed to delete subCategory: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Failed to update subCategory: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

@@ -13,7 +13,6 @@ public class AddProductRequest {
     private String productName;
     private Integer productPrice;
     private String productDesc;
-    private Integer categoryId;
     private Integer subCategoryId;
 
 
