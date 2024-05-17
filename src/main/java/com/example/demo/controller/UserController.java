@@ -39,6 +39,21 @@ public class UserController {
         }
     }
 
+    //login şuan için çalışmıyor bakılacak
+    @PostMapping("/login")
+    public ResponseEntity<String> loginUser(@RequestParam String email, @RequestParam String password) {
+        try {
+            boolean loginResult = userService.loginUser(email, password);
+            if (loginResult) {
+                return new ResponseEntity<>("Login successful", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Invalid email or password", HttpStatus.UNAUTHORIZED);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("Failed to login: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping("/changepassword")
     public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest) {
         try {
