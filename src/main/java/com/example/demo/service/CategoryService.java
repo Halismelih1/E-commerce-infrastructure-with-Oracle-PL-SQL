@@ -1,18 +1,11 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.AddCategoryRequest;
 import com.example.demo.entities.Categories;
 import com.example.demo.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.SqlOutParameter;
-import org.springframework.jdbc.core.SqlParameter;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Service;
 
-import java.sql.Types;
 import java.util.List;
 import java.util.Optional;
 

@@ -1,10 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.AddCategoryRequest;
-import com.example.demo.dto.UpdateCategoryRequest;
-import com.example.demo.dto.UserRegisterRequest;
+import com.example.demo.dto.category.AddCategoryRequest;
+import com.example.demo.dto.category.UpdateCategoryRequest;
 import com.example.demo.entities.Categories;
-import com.example.demo.entities.SubCategories;
 import com.example.demo.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

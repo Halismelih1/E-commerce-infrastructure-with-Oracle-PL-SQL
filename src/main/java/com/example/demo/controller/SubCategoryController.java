@@ -1,14 +1,14 @@
 package com.example.demo.controller;
 
+
+import com.example.demo.dto.subCategory.AddSubRequest;
+import com.example.demo.dto.subCategory.UpdateSubRequest;
 import com.example.demo.entities.SubCategories;
-import com.example.demo.entities.Users;
 import com.example.demo.service.SubCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,5 +27,35 @@ public class SubCategoryController {
         Optional<SubCategories> subCat = subCategoryService.getSubCategoryById(subId);
         return subCat.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/addSubCategory")
+    public ResponseEntity<String> addSubCategory(@RequestBody AddSubRequest addSubRequest) {
+        try {
+            subCategoryService.callAddSubCategoryProcedure(addSubRequest.getSubCategoryName(),addSubRequest.getSubCategoryDesc(),addSubRequest.getCategoryId());
+            return new ResponseEntity<>("subCategory Added successfully", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Failed to Added subCategory: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/deleteSubCategory/{id}")
+    public ResponseEntity<String> deleteSubCategory(@PathVariable Integer id) {
+        try {
+            subCategoryService.callDeleteSubCategoryProcedure(id);
+            return new ResponseEntity<>("subCategory deleted successfully", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Failed to delete subCategory: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/updateSubCategory")
+    public ResponseEntity<String> updateSubCategory(@RequestBody UpdateSubRequest updateSubRequest) {
+        try {
+            subCategoryService.callUpdateSubCategoryProcedure(updateSubRequest.getSubCategoryId(),updateSubRequest.getSubCategoryName(),updateSubRequest.getSubCategoryDesc(),updateSubRequest.getCategoryId());
+            return new ResponseEntity<>("subCategory deleted successfully", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Failed to delete subCategory: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

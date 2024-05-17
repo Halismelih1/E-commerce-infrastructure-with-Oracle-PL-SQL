@@ -22,4 +22,24 @@ public class SubCategoryService {
     public Optional<SubCategories> getSubCategoryById(Integer subId) {
         return subCategoryRepository.findById(subId);
     }
+
+    //Oracle PL/SQL prosedürleri çağır
+
+    public void callAddSubCategoryProcedure(String subCategoryName, String subCategoryDesc, Integer categoryId) {
+        String sql = "{call subCategoryCrud.addSubCategory(?, ?, ?)}";
+        jdbcTemplate.update(sql, subCategoryName, subCategoryDesc, categoryId);
+
+    }
+
+    public void callDeleteSubCategoryProcedure(int id) {
+        String sql = "{call subCategoryCrud.deleteSubCategory(?)}";
+        jdbcTemplate.update(sql, id);
+
+    }
+
+    public void callUpdateSubCategoryProcedure(int id, String subCategoryName, String subCategoryDesc, Integer categoryId) {
+        String sql = "{call categoryCrud.updateCategory(?,?,?,?)}";
+        jdbcTemplate.update(sql, id,subCategoryName, subCategoryDesc , categoryId);
+
+    }
 }
