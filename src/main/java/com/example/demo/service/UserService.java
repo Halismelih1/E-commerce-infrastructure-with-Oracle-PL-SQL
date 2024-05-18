@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
 
-import com.example.demo.dto.UserRegisterRequest;
+import com.example.demo.dto.user.UserRegisterRequest;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.entities.Users;
 import com.zaxxer.hikari.HikariDataSource;

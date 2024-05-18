@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.ChangePasswordRequest;
-import com.example.demo.dto.UserRegisterRequest;
+import com.example.demo.dto.user.ChangePasswordRequest;
+import com.example.demo.dto.user.UserRegisterRequest;
 import com.example.demo.entities.Users;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
