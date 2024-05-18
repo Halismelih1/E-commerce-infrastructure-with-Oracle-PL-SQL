@@ -33,7 +33,7 @@ public class UserController {
     public ResponseEntity<String> registerUser(@RequestBody UserRegisterRequest userRegisterRequest) {
         try {
             userService.registerUser(userRegisterRequest);
-            return new ResponseEntity<>("User registered successfully", HttpStatus.CREATED);
+            return new ResponseEntity<>("User registered successfully:"  + userRegisterRequest.getEmail() +  "ile Yeni Kayıt Oluşturuldu", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("Failed to register user: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -45,7 +45,7 @@ public class UserController {
         try {
             boolean loginResult = userService.loginUser(email, password);
             if (loginResult) {
-                return new ResponseEntity<>("Login successful", HttpStatus.OK);
+                return new ResponseEntity<>("Login successful: " + email + " ile giriş yapıldı.", HttpStatus.OK);
             } else {
                 return new ResponseEntity<>("Invalid email or password", HttpStatus.UNAUTHORIZED);
             }
@@ -53,6 +53,7 @@ public class UserController {
             return new ResponseEntity<>("Failed to login: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 
     @PostMapping("/changepassword")
     public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest) {

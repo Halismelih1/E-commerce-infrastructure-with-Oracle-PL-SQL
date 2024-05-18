@@ -4,6 +4,7 @@ package com.example.demo.service;
 import com.example.demo.dto.UserRegisterRequest;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.entities.Users;
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,8 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
     private final JdbcTemplate jdbcTemplate;
+    @Autowired
+    private HikariDataSource dataSource;
 
     public UserService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -39,20 +42,20 @@ public class UserService {
 
     //login şuan için çalışmıyor bakılacak
     public boolean loginUser(String email, String password) {
-        try (Connection connection = jdbcTemplate.getDataSource().getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql = "{ ? = call LoginPackage.LoginUser(?, ?) }";
             try (CallableStatement callableStatement = connection.prepareCall(sql)) {
-                callableStatement.registerOutParameter(1, Types.BOOLEAN);
+                callableStatement.registerOutParameter(1, Types.NUMERIC); // NUMERIC türüne kayıt oluştur
                 callableStatement.setString(2, email);
                 callableStatement.setString(3, password);
                 callableStatement.execute();
-                return callableStatement.getBoolean(1);
+                int loginResult = callableStatement.getInt(1); // NUMERIC değeri INT olarak al
+                return loginResult == 1; // 1 başarılı girişi, 0 başarısız girişi temsil eder
             }
         } catch (SQLException e) {
             throw new RuntimeException("Failed to login: " + e.getMessage(), e);
         }
     }
-
 
 
 
