@@ -24,6 +24,10 @@ public class SubCategories {
 
     @ManyToOne
     @JoinColumn(name = "CATEGORYID")
-    private Categories categories;
+    private Categories category;
+
+    @OneToMany(mappedBy = "subCategory", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Products> products;
 
 }

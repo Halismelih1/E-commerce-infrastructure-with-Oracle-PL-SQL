@@ -12,22 +12,24 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Data
-@Table(name = "Carts")
-public class Carts {
+@Table(name = "Orders")
+public class Orders {
     @Id
-    @Column(name = "CARTID")
-    private Integer cartId;
+    @Column(name = "ORDERID")
+    private Integer orderId;
+    @Column(name = "ORDERDATE")
+    private String orderDate;
     @Column(name = "TOTALAMOUNT")
     private String totalAmount;
     @Column(name = "USERID")
     private String userId;
 
-    @OneToOne
-    @JoinColumn(name = "USERID", referencedColumnName = "USERID", insertable = false, updatable = false)
+    @ManyToOne
+    @JoinColumn(name = "USERID", insertable = false, updatable = false)
     private Users user;
 
-    @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<BasketItems> basketItems;
-
+    private List<OrderItems> orderItems;
 }
+

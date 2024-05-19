@@ -1,10 +1,13 @@
 package com.example.demo.entities;
 
 import com.example.demo.service.SubCategoryService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,5 +26,17 @@ public class Products {
     private String productDesc;
     @Column(name = "SUBCATEGORYID")
     private String subCategoryId;
+
+    @ManyToOne
+    @JoinColumn(name = "SUBCATEGORYID", insertable = false, updatable = false)
+    private SubCategories subCategory;
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<BasketItems> basketItems;
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<OrderItems> orderItems;
 
 }
