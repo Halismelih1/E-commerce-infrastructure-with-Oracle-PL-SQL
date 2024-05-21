@@ -60,7 +60,7 @@ public class ProductsController {
         }
     }
 
-    @GetMapping("/filter")
+    @PostMapping("/filter")
     public List<FilterProdRes> filterProducts(@RequestBody FilterProdReq filterProdReq) {
         return productService.callFilterProdProcedure(
                 filterProdReq.getSubCategoryId(),
