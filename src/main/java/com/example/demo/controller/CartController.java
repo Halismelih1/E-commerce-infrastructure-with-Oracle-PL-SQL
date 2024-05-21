@@ -43,7 +43,7 @@ public class CartController {
     @PostMapping("/removeFromCart")
     public ResponseEntity<String> removeFromCart(@RequestBody RemoveToBasketRequest removeToBasketRequest) {
         try {
-            cartService.callRemoveToCartProcedure( removeToBasketRequest.getUserId(),removeToBasketRequest.getProductId(),removeToBasketRequest.getQuantity());
+            cartService.callRemoveToCartProcedure( removeToBasketRequest.getUserId(),removeToBasketRequest.getProductId());
             return new ResponseEntity<>("Remove From basket successfully", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("Failed remove from basket: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

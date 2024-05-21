@@ -2,10 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.category.AddCategoryRequest;
 import com.example.demo.dto.category.UpdateCategoryRequest;
-import com.example.demo.dto.product.AddProductRequest;
-import com.example.demo.dto.product.FilterProdReq;
-import com.example.demo.dto.product.FilterProdRes;
-import com.example.demo.dto.product.UpdateProductRequest;
+import com.example.demo.dto.product.*;
 import com.example.demo.entities.Products;
 import com.example.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +60,7 @@ public class ProductsController {
         }
     }
 
-    @PostMapping("/filter")
+    @GetMapping("/filter")
     public List<FilterProdRes> filterProducts(@RequestBody FilterProdReq filterProdReq) {
         return productService.callFilterProdProcedure(
                 filterProdReq.getSubCategoryId(),
@@ -72,4 +69,10 @@ public class ProductsController {
                 filterProdReq.getProductName()
         );
     }
+
+    @GetMapping("/products/filterByCategory/{id}")
+    public List<FilterProdByCategory> filterProductsByCat(@PathVariable int id) {
+        return productService.callFilterProdByCategoryProcedure(id);
+    }
+
 }

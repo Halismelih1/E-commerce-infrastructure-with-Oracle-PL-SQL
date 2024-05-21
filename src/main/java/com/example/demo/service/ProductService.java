@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.favourites.UserFavouriteList;
+import com.example.demo.dto.product.FilterProdByCategory;
 import com.example.demo.dto.product.FilterProdRes;
 import com.example.demo.entities.Products;
 import com.example.demo.repository.ProductRepository;
@@ -73,6 +74,36 @@ public class ProductService {
                     List<FilterProdRes> items = new ArrayList<>();
                     while (rs.next()) {
                         FilterProdRes item = new FilterProdRes(
+                                rs.getInt("productId"),
+                                rs.getString("productName"),
+                                rs.getInt("productPrice")
+                        );
+                        items.add(item);
+                    }
+                    return items;
+                }
+        );
+
+        return filteredProducts;
+    }
+
+    public List<FilterProdByCategory> callFilterProdByCategoryProcedure(Integer categoryId) {
+        String sql = "{call productCrud.filterProductsByCategoryId(?, ?)}";
+
+        List<FilterProdByCategory> filteredProducts = jdbcTemplate.execute(
+                (Connection conn) -> {
+                    CallableStatement cs = conn.prepareCall(sql);
+                    cs.setInt(1, categoryId);
+                    cs.registerOutParameter(2, OracleTypes.CURSOR);
+                    return cs;
+                },
+                (CallableStatement cs) -> {
+                    cs.execute();
+                    ResultSet rs = (ResultSet) cs.getObject(2);
+
+                    List<FilterProdByCategory> items = new ArrayList<>();
+                    while (rs.next()) {
+                        FilterProdByCategory item = new FilterProdByCategory(
                                 rs.getInt("productId"),
                                 rs.getString("productName"),
                                 rs.getInt("productPrice")

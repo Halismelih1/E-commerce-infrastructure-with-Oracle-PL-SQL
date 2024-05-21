@@ -44,9 +44,9 @@ public class CartService {
 
     }
 
-    public void callRemoveToCartProcedure(Integer userId, Integer productId, Integer quantity) {
-        String sql = "{call BASKETMANAGER.RemoveProductFromCart(?, ?, ?)}";
-        jdbcTemplate.update(sql, userId, productId, quantity);
+    public void callRemoveToCartProcedure(Integer userId, Integer productId) {
+        String sql = "{call BASKETMANAGER.RemoveProductFromCart(?, ?)}";
+        jdbcTemplate.update(sql, userId, productId);
 
     }
 

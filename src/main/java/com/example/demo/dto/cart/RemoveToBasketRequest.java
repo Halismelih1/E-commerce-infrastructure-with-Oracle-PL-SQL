@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 public class RemoveToBasketRequest {
     private Integer userId;
     private Integer productId;
-    private Integer quantity ;
 }
 
 
