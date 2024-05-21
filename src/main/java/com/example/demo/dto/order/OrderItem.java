@@ -12,10 +12,8 @@ import java.util.Date;
 public class OrderItem {
 
     private int orderId;
-    private Date orderDate ;
-    private int totalAmount;
-    private int quantity;
-    private String productName;
-    private int productPrice;
+    private Date orderDate;
+    private String orderDetails;
+    private int totalOrderPrice;
 
 }

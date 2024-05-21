@@ -57,11 +57,8 @@ public class OrderService {
                         OrderItem item = new OrderItem(
                                 rs.getInt("orderId"),
                                 rs.getDate("orderDate"),
-                                rs.getInt("totalAmount"),
-                                rs.getInt("quantity"),
-                                rs.getString("productName"),
-                                rs.getInt("productPrice")
-
+                                rs.getString("orderDetails"),
+                                rs.getInt("totalOrderPrice")
                         );
                         items.add(item);
                     }
@@ -71,7 +68,6 @@ public class OrderService {
 
         return orderItems;
     }
-
 
 
 
