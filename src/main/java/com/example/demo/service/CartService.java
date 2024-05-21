@@ -60,7 +60,6 @@ public class CartService {
     public List<ProductItem> callViewCartProcedure(Integer userId) {
         String sql = "{call BASKETMANAGER.ViewCart(?, ?)}";
 
-        // Call stored procedure and get the results
         List<ProductItem> productItems = jdbcTemplate.execute(
                 (Connection conn) -> {
                     CallableStatement cs = conn.prepareCall(sql);
@@ -73,15 +72,18 @@ public class CartService {
                     ResultSet rs = (ResultSet) cs.getObject(2);
 
                     List<ProductItem> items = new ArrayList<>();
+
                     while (rs.next()) {
                         ProductItem item = new ProductItem(
                                 rs.getInt("productId"),
                                 rs.getString("productName"),
                                 rs.getInt("productPrice"),
-                                rs.getInt("quantity")
+                                rs.getInt("quantity"),
+                                rs.getInt("totalItemPrice")  // Her ürün için toplam tutar
                         );
                         items.add(item);
                     }
+
                     return items;
                 }
         );

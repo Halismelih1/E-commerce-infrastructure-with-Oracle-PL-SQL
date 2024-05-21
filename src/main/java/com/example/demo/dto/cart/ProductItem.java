@@ -12,4 +12,5 @@ public class ProductItem {
     private String productName;
     private int productPrice;
     private int quantity;
+    private int totalItemPrice;
 }
