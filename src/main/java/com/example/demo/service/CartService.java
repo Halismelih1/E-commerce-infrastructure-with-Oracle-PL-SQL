@@ -1,11 +1,19 @@
 package com.example.demo.service;
 
 
+import com.example.demo.dto.cart.ProductItem;
 import com.example.demo.entities.Carts;
 import com.example.demo.repository.CartRepository;
+import org.hibernate.dialect.OracleTypes;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.*;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Service;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +23,7 @@ public class CartService {
     @Autowired
     private CartRepository cartRepository;
     private JdbcTemplate jdbcTemplate;
+    private SimpleJdbcCall simpleJdbcCall;
 
     public CartService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -41,18 +50,46 @@ public class CartService {
 
     }
 
-    /*
-    public void callClearCartProcedure(Integer id) {
+
+    public void callClearCartProcedure(Integer userId) {
         String sql = "{call BASKETMANAGER.ClearCart(?)}";
-        jdbcTemplate.update(sql, id);
+        jdbcTemplate.update(sql, userId);
 
-    } */
+    }
 
+    public List<ProductItem> callViewCartProcedure(Integer userId) {
+        String sql = "{call BASKETMANAGER.ViewCart(?, ?)}";
 
-     /*
-    public void callViewCartProcedure(int id) {
-        String sql = "{call BASKETMANAGER.ViewCart(?)}";
-        jdbcTemplate.update(sql, id);
+        // Call stored procedure and get the results
+        List<ProductItem> productItems = jdbcTemplate.execute(
+                (Connection conn) -> {
+                    CallableStatement cs = conn.prepareCall(sql);
+                    cs.setInt(1, userId);
+                    cs.registerOutParameter(2, OracleTypes.CURSOR);
+                    return cs;
+                },
+                (CallableStatement cs) -> {
+                    cs.execute();
+                    ResultSet rs = (ResultSet) cs.getObject(2);
 
-    } */
+                    List<ProductItem> items = new ArrayList<>();
+                    while (rs.next()) {
+                        ProductItem item = new ProductItem(
+                                rs.getInt("productId"),
+                                rs.getString("productName"),
+                                rs.getInt("productPrice"),
+                                rs.getInt("quantity")
+                        );
+                        items.add(item);
+                    }
+                    return items;
+                }
+        );
+
+        return productItems;
+    }
 }
+
+
+
+

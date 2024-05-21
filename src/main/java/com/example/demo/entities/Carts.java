@@ -23,11 +23,8 @@ public class Carts {
     private String userId;
 
     @OneToOne
+    @JsonIgnore
     @JoinColumn(name = "USERID", referencedColumnName = "USERID", insertable = false, updatable = false)
     private Users user;
-
-    @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<BasketItems> basketItems;
 
 }

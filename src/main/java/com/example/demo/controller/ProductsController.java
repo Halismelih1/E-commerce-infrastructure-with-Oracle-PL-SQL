@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import com.example.demo.dto.category.AddCategoryRequest;
 import com.example.demo.dto.category.UpdateCategoryRequest;
 import com.example.demo.dto.product.AddProductRequest;
+import com.example.demo.dto.product.FilterProdReq;
+import com.example.demo.dto.product.FilterProdRes;
 import com.example.demo.dto.product.UpdateProductRequest;
 import com.example.demo.entities.Products;
 import com.example.demo.service.ProductService;
@@ -59,5 +61,15 @@ public class ProductsController {
         } catch (Exception e) {
             return new ResponseEntity<>("Failed to update Product: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @PostMapping("/filter")
+    public List<FilterProdRes> filterProducts(@RequestBody FilterProdReq filterProdReq) {
+        return productService.callFilterProdProcedure(
+                filterProdReq.getSubCategoryId(),
+                filterProdReq.getMinPrice(),
+                filterProdReq.getMaxPrice(),
+                filterProdReq.getProductName()
+        );
     }
 }

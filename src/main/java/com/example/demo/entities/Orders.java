@@ -28,8 +28,6 @@ public class Orders {
     @JoinColumn(name = "USERID", insertable = false, updatable = false)
     private Users user;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<OrderItems> orderItems;
+
 }
 

@@ -31,6 +31,7 @@ public class Users {
     private String phone;
 
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     private Carts cart;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)

@@ -31,12 +31,6 @@ public class Products {
     @JoinColumn(name = "SUBCATEGORYID", insertable = false, updatable = false)
     private SubCategories subCategory;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<BasketItems> basketItems;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<OrderItems> orderItems;
 
 }

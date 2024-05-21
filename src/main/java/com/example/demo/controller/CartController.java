@@ -1,11 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.cart.ProductItem;
 import com.example.demo.dto.cart.AddToBasketRequest;
 import com.example.demo.dto.cart.RemoveToBasketRequest;
-import com.example.demo.dto.category.AddCategoryRequest;
-import com.example.demo.dto.category.UpdateCategoryRequest;
 import com.example.demo.entities.Carts;
-import com.example.demo.entities.Categories;
 import com.example.demo.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,16 +50,22 @@ public class CartController {
         }
     }
 
-    /*
-    @PostMapping("/clearCart/{id}")
-    public ResponseEntity<String> clearCart(@PathVariable Integer id) {
+
+    @PostMapping("/clearCart/{userId}")
+    public ResponseEntity<String> clearCart(@PathVariable Integer userId) {
         try {
-            cartService.callClearCartProcedure(id);
+            cartService.callClearCartProcedure(userId);
             return new ResponseEntity<>("Cart clear successfully", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("Failed to clear cart: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-     */
+    @GetMapping("/viewCart/{userId}")
+    public List<ProductItem> viewCart(@PathVariable int userId) {
+        return cartService.callViewCartProcedure(userId);
+    }
+
+
+
 }
