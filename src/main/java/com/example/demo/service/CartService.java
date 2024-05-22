@@ -79,7 +79,8 @@ public class CartService {
                                 rs.getString("productName"),
                                 rs.getInt("productPrice"),
                                 rs.getInt("quantity"),
-                                rs.getInt("totalItemPrice")  // Her ürün için toplam tutar
+                                rs.getInt("totalItemPrice"),
+                                rs.getInt("totalCartAmount")
                         );
                         items.add(item);
                     }

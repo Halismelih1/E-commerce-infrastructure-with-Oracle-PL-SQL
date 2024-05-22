@@ -13,4 +13,5 @@ public class ProductItem {
     private int productPrice;
     private int quantity;
     private int totalItemPrice;
+    private int totalCartAmount;
 }
