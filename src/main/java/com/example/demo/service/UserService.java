@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 
+import com.example.demo.dto.user.UserInfo;
 import com.example.demo.dto.user.UserRegisterRequest;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.entities.Users;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.*;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -41,20 +43,29 @@ public class UserService {
     }
 
     //login şuan için çalışmıyor bakılacak
-    public boolean loginUser(String email, String password) {
+    public UserInfo loginUser(String email, String password) {
+        UserInfo userInfo = new UserInfo();
         try (Connection connection = dataSource.getConnection()) {
-            String sql = "{ ? = call LoginPackage.LoginUser(?, ?) }";
+            String sql = "{ call LoginPackage.LoginUser(?, ?, ?, ?, ?) }";
             try (CallableStatement callableStatement = connection.prepareCall(sql)) {
-                callableStatement.registerOutParameter(1, Types.NUMERIC); // NUMERIC türüne kayıt oluştur
-                callableStatement.setString(2, email);
-                callableStatement.setString(3, password);
+                callableStatement.setString(1, email);
+                callableStatement.setString(2, password);
+                callableStatement.registerOutParameter(3, Types.NUMERIC);
+                callableStatement.registerOutParameter(4, Types.VARCHAR);
+                callableStatement.registerOutParameter(5, Types.NUMERIC);
                 callableStatement.execute();
-                int loginResult = callableStatement.getInt(1); // NUMERIC değeri INT olarak al
-                return loginResult == 1; // 1 başarılı girişi, 0 başarısız girişi temsil eder
+                int loginResult = callableStatement.getInt(5);
+                if (loginResult == 1) {
+                    userInfo.setUserId(callableStatement.getInt(3));
+                    userInfo.setEmail(callableStatement.getString(4));
+                } else {
+                    throw new RuntimeException(callableStatement.getString(4)); // Hata mesajını email alanından al
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException("Failed to login: " + e.getMessage(), e);
         }
+        return userInfo;
     }
 
 

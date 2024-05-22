@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.user.ChangePasswordRequest;
+import com.example.demo.dto.user.UserInfo;
 import com.example.demo.dto.user.UserRegisterRequest;
 import com.example.demo.entities.Users;
 import com.example.demo.service.UserService;
@@ -9,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -39,20 +42,16 @@ public class UserController {
         }
     }
 
-    //login şuan için çalışmıyor bakılacak
-    @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestParam String email, @RequestParam String password) {
+    @GetMapping("/login/{email}/{password}")
+    public ResponseEntity<UserInfo> loginUser(@PathVariable String email, @PathVariable String password) {
         try {
-            boolean loginResult = userService.loginUser(email, password);
-            if (loginResult) {
-                return new ResponseEntity<>("Login successful: " + email + " ile giriş yapıldı.", HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>("Invalid email or password", HttpStatus.UNAUTHORIZED);
-            }
+            UserInfo userInfo = userService.loginUser(email, password);
+            return new ResponseEntity<>(userInfo, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("Failed to login: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 
 
     @PostMapping("/changepassword")
