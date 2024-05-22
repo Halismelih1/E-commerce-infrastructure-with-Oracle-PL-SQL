@@ -61,7 +61,9 @@ public class FavouriteService {
                     List<UserFavouriteList> items = new ArrayList<>();
                     while (rs.next()) {
                         UserFavouriteList item = new UserFavouriteList(
-                                rs.getString("productName")
+                                rs.getInt("productId"),
+                                rs.getString("productName"),
+                                rs.getInt("productPrice")
 
                         );
                         items.add(item);
@@ -90,7 +92,9 @@ public class FavouriteService {
                     List<MostFavouriteProducts> items = new ArrayList<>();
                     while (rs.next()) {
                         MostFavouriteProducts item = new MostFavouriteProducts(
+                                rs.getInt("productId"),
                                 rs.getString("productName"),
+                                rs.getInt("productPrice"),
                                 rs.getInt("favCount")
                         );
                         items.add(item);

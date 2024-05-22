@@ -60,13 +60,18 @@ public class ProductsController {
         }
     }
 
-    @PostMapping("/filter")
-    public List<FilterProdRes> filterProducts(@RequestBody FilterProdReq filterProdReq) {
+    @GetMapping("/filter")
+    public List<FilterProdRes> filterProducts(
+            @RequestParam(required = false) Integer subCategoryId,
+            @RequestParam(required = false) Integer minPrice,
+            @RequestParam(required = false) Integer maxPrice,
+            @RequestParam(required = false) String productName) {
+
         return productService.callFilterProdProcedure(
-                filterProdReq.getSubCategoryId(),
-                filterProdReq.getMinPrice(),
-                filterProdReq.getMaxPrice(),
-                filterProdReq.getProductName()
+                subCategoryId,
+                minPrice,
+                maxPrice,
+                productName
         );
     }
 

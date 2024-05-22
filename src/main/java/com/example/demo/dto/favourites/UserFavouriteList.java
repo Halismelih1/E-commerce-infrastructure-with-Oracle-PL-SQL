@@ -8,7 +8,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserFavouriteList {
+    private Integer productId;
     private String productName;
+    private Integer productPrice;
+
 }
 
 

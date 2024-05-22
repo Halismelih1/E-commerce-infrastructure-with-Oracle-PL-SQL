@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MostFavouriteProducts {
+    private Integer productId;
     private String productName;
+    private Integer productPrice;
     private int favCount;
 }
