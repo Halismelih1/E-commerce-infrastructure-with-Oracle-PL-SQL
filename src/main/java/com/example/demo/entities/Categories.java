@@ -19,8 +19,6 @@ public class Categories {
     private Integer categoryId;
     @Column(name = "CATEGORYNAME")
     private String categoryName;
-    @Column(name = "CATEGORYDESC")
-    private String categoryDesc;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     @JsonIgnore

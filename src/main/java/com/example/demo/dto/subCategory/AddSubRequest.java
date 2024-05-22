@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class AddSubRequest {
     private String subCategoryName;
-    private String subCategoryDesc;
     private Integer categoryId;
 
 }

@@ -29,9 +29,9 @@ public class SubCategoryService {
 
     //Oracle PL/SQL prosedürleri çağır
 
-    public void callAddSubCategoryProcedure(String subCategoryName, String subCategoryDesc, Integer categoryId) {
-        String sql = "{call SUBCATEGORYCRUD.addSubCategory(?, ?, ?)}";
-        jdbcTemplate.update(sql, subCategoryName, subCategoryDesc, categoryId);
+    public void callAddSubCategoryProcedure(String subCategoryName, Integer categoryId) {
+        String sql = "{call SUBCATEGORYCRUD.addSubCategory(?, ?)}";
+        jdbcTemplate.update(sql, subCategoryName, categoryId);
 
     }
 
@@ -41,9 +41,9 @@ public class SubCategoryService {
 
     }
 
-    public void callUpdateSubCategoryProcedure(int id, String subCategoryName, String subCategoryDesc, Integer categoryId) {
-        String sql = "{call SUBCATEGORYCRUD.updateSubCategory(?,?,?,?)}";
-        jdbcTemplate.update(sql, id,subCategoryName, subCategoryDesc , categoryId);
+    public void callUpdateSubCategoryProcedure(int id, String subCategoryName, Integer categoryId) {
+        String sql = "{call SUBCATEGORYCRUD.updateSubCategory(?,?,?)}";
+        jdbcTemplate.update(sql, id,subCategoryName , categoryId);
 
     }
 }

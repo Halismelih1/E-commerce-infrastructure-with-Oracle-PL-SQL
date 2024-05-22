@@ -31,7 +31,7 @@ public class CategoryController {
     @PostMapping("/addCategory")
     public ResponseEntity<String> addCategory(@RequestBody AddCategoryRequest addCategoryRequest) {
         try {
-            categoryService.callAddCategoryProcedure(addCategoryRequest.getCategoryName(),addCategoryRequest.getCategoryDesc());
+            categoryService.callAddCategoryProcedure(addCategoryRequest.getCategoryName());
             return new ResponseEntity<>("Category Added successfully", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("Failed to Added Category: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -51,7 +51,7 @@ public class CategoryController {
     @PostMapping("/updateCategory")
     public ResponseEntity<String> updateCategory(@RequestBody UpdateCategoryRequest updateCategoryRequest) {
         try {
-            categoryService.callUpdateCategoryProcedure(updateCategoryRequest.getId(),updateCategoryRequest.getCategoryName(),updateCategoryRequest.getCategoryDesc());
+            categoryService.callUpdateCategoryProcedure(updateCategoryRequest.getId(),updateCategoryRequest.getCategoryName());
             return new ResponseEntity<>("Category updated successfully", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("Failed to update Category: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

@@ -9,5 +9,4 @@ import lombok.NoArgsConstructor;
 @Data
 public class AddCategoryRequest {
     private String categoryName;
-    private String categoryDesc;
 }

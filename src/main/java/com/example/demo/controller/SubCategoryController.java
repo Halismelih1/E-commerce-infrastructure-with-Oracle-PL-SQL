@@ -32,7 +32,7 @@ public class SubCategoryController {
     @PostMapping("/addSubCategory")
     public ResponseEntity<String> addSubCategory(@RequestBody AddSubRequest addSubRequest) {
         try {
-            subCategoryService.callAddSubCategoryProcedure(addSubRequest.getSubCategoryName(),addSubRequest.getSubCategoryDesc(),addSubRequest.getCategoryId());
+            subCategoryService.callAddSubCategoryProcedure(addSubRequest.getSubCategoryName(),addSubRequest.getCategoryId());
             return new ResponseEntity<>("subCategory Added successfully", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("Failed to Added subCategory: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -52,7 +52,7 @@ public class SubCategoryController {
     @PostMapping("/updateSubCategory")
     public ResponseEntity<String> updateSubCategory(@RequestBody UpdateSubRequest updateSubRequest) {
         try {
-            subCategoryService.callUpdateSubCategoryProcedure(updateSubRequest.getSubCategoryId(),updateSubRequest.getSubCategoryName(),updateSubRequest.getSubCategoryDesc(),updateSubRequest.getCategoryId());
+            subCategoryService.callUpdateSubCategoryProcedure(updateSubRequest.getSubCategoryId(),updateSubRequest.getSubCategoryName(),updateSubRequest.getCategoryId());
             return new ResponseEntity<>("subCategory updated successfully", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("Failed to update subCategory: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

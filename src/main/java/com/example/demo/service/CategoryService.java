@@ -27,9 +27,9 @@ public class CategoryService {
         return categoryRepository.findById(catId);
     }
     //Oracle PL/SQL prosedürleri çağır
-    public void callAddCategoryProcedure(String categoryName, String categoryDesc) {
-        String sql = "{call categoryCrud.addCategory(?, ?)}";
-        jdbcTemplate.update(sql, categoryName, categoryDesc);
+    public void callAddCategoryProcedure(String categoryName) {
+        String sql = "{call categoryCrud.addCategory(?)}";
+        jdbcTemplate.update(sql, categoryName);
 
     }
 
@@ -39,9 +39,9 @@ public class CategoryService {
 
     }
 
-    public void callUpdateCategoryProcedure(int id, String categoryName, String categoryDesc) {
-        String sql = "{call categoryCrud.updateCategory(?,?,?)}";
-        jdbcTemplate.update(sql, id,categoryName, categoryDesc);
+    public void callUpdateCategoryProcedure(int id, String categoryName) {
+        String sql = "{call categoryCrud.updateCategory(?,?)}";
+        jdbcTemplate.update(sql, id,categoryName);
 
     }
 
