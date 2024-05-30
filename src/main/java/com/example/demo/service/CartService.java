@@ -23,7 +23,6 @@ public class CartService {
     @Autowired
     private CartRepository cartRepository;
     private JdbcTemplate jdbcTemplate;
-    private SimpleJdbcCall simpleJdbcCall;
 
     public CartService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;

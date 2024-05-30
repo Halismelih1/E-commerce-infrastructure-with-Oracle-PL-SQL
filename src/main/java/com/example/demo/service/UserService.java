@@ -42,7 +42,6 @@ public class UserService {
         jdbcTemplate.update(sql, userRegisterRequest.getUsername(), userRegisterRequest.getUserPassword(),userRegisterRequest.getFirstname(),userRegisterRequest.getLastname(),userRegisterRequest.getEmail(),userRegisterRequest.getPhone());
     }
 
-    //login şuan için çalışmıyor bakılacak
     public UserInfo loginUser(String email, String password) {
         UserInfo userInfo = new UserInfo();
         try (Connection connection = dataSource.getConnection()) {
@@ -59,7 +58,7 @@ public class UserService {
                     userInfo.setUserId(callableStatement.getInt(3));
                     userInfo.setEmail(callableStatement.getString(4));
                 } else {
-                    throw new RuntimeException(callableStatement.getString(4)); // Hata mesajını email alanından al
+                    throw new RuntimeException(callableStatement.getString(4));
                 }
             }
         } catch (SQLException e) {
